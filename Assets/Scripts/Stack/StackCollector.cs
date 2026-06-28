@@ -14,18 +14,6 @@ public class StackCollector : MonoBehaviour
         _player = GetComponent<PlayerController>();
     }
 
-    private void OnEnable()
-    {
-        _player.OnTap += HandlePlayerTap;
-    }
-
-    private void OnDisable()
-    {
-        _player.OnTap -= HandlePlayerTap;
-    }
-    
-    private void HandlePlayerTap() => AddToStack();
-
     public void AddToStack(int amount = 1)
     {
         StackCount += amount;

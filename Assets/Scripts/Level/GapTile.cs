@@ -1,26 +1,26 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class PlatformPickup : MonoBehaviour
+public class GapTile : MonoBehaviour
 {
     private StackCollector _stackCollector;
-    private bool _collected;
+    private bool _consumed;
 
-    public void Initialise(StackCollector collector)
+    public void Initialise()
     {
-        _stackCollector = collector;
-        _collected = false;
+        _consumed = false;
         gameObject.SetActive(true);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_collected) return;
+        if (_consumed) return;
         var collector = other.GetComponentInParent<StackCollector>();
         if (collector == null) return;
 
-        _collected = true;
-        collector.AddToStack();
-        gameObject.SetActive(false);
+        _consumed = true;
+        bool survived = collector.ConsumeStack(1);
+        if (!survived)
+            GameManager.Instance.TriggerGameOver();
     }
 }
