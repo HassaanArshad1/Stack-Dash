@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7457231680202995956}
   - component: {fileID: 3427668992962350277}
+  - component: {fileID: 944734989994390}
+  - component: {fileID: 3018309789769776318}
   m_Layer: 0
   m_Name: GapSegment
   m_TagString: Untagged
@@ -45,3 +47,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileSize: 1
+  segmentWidth: 8
+--- !u!65 &944734989994390
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083245335919995110}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3018309789769776318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083245335919995110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e0592d0272f1464eb3c577504f497d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileSize: 1
+  bridgeTilePrefab: {fileID: 6058167920653867538, guid: 81cbab72396ef4db38b1c68ad344f767, type: 3}

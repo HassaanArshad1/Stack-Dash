@@ -1,43 +1,38 @@
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(BridgePlacer))]
 public class GapSegment : Segment
 {
     [SerializeField] private float tileSize = 1f;
+    [SerializeField] private float segmentWidth = 8f;
 
-    private readonly List<GapTile> _tiles = new List<GapTile>();
+    private BoxCollider _trigger;
+    private BridgePlacer _bridgePlacer;
 
-    public void Initialise(int gapWidth, GameObject gapTilePrefab)
+    private void Awake()
     {
-        ClearTiles();
-        SegmentLength = gapWidth * tileSize;
-
-        for (int i = 0; i < gapWidth; i++)
-        {
-            float zOffset = i * tileSize + tileSize * 0.5f;
-            var go = Instantiate(gapTilePrefab,
-                transform.position + Vector3.forward * zOffset,
-                Quaternion.identity, transform);
-
-            var tile = go.GetComponent<GapTile>();
-            tile.Initialise();
-            _tiles.Add(tile);
-        }
-
-        gameObject.SetActive(true);
+        _trigger = GetComponent<BoxCollider>();
+        _trigger.isTrigger = true;
+        _bridgePlacer = GetComponent<BridgePlacer>();
     }
 
-    private void ClearTiles()
+    public void Initialise(int gapWidth, StackCollector collector)
     {
-        foreach (var t in _tiles)
-            if (t != null) Destroy(t.gameObject);
-        _tiles.Clear();
-        SegmentLength = 0;
+        SegmentLength = gapWidth * tileSize;
+
+        _trigger.size = new Vector3(segmentWidth, 2f, SegmentLength);
+        _trigger.center = new Vector3(0, 1f, SegmentLength * 0.5f);
+
+        float gapStartZ = transform.position.z;
+        float gapEndZ = transform.position.z + SegmentLength;
+        _bridgePlacer.Initialise(collector, gapStartZ, gapEndZ);
+        gameObject.SetActive(true);
     }
 
     public override void Recycle()
     {
-        ClearTiles();
+        _bridgePlacer.ClearTiles();
         gameObject.SetActive(false);
     }
 }

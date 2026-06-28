@@ -12,7 +12,6 @@ public class LevelSpawner : MonoBehaviour
     [SerializeField] private GameObject groundSegmentPrefab;
     [SerializeField] private GameObject gapSegmentPrefab;
     [SerializeField] private GameObject pickupPrefab;
-    [SerializeField] private GameObject gapTilePrefab;
 
     [Header("Spawn Settings")]
     [SerializeField] private float spawnAheadDistance = 30f;
@@ -73,7 +72,7 @@ public class LevelSpawner : MonoBehaviour
     }
 
     private void SpawnGroundSegment()
-    {
+    { 
         var segment = GetGroundSegment();
         segment.transform.position = new Vector3(0, 0, _nextSpawnZ);
         int pickupCount = difficultyConfig.pickupsPerSegment;
@@ -87,7 +86,7 @@ public class LevelSpawner : MonoBehaviour
         var segment = GetGapSegment();
         segment.transform.position = new Vector3(0, 0, _nextSpawnZ);
         int gapWidth = difficultyConfig.GetGapWidth(_distanceTraveled);
-        segment.Initialise(gapWidth, gapTilePrefab);
+        segment.Initialise(gapWidth, stackCollector);
         _nextSpawnZ += segment.SegmentLength;
         _activeSegments.Add(segment);
     }
@@ -113,8 +112,7 @@ public class LevelSpawner : MonoBehaviour
 
     private void UpdatePlayerSpeed()
     {
-        // Hook into PlayerController speed via DifficultyConfig
-        // Implemented in PlayerController update next
+        
     }
 
     private GroundSegment GetGroundSegment()

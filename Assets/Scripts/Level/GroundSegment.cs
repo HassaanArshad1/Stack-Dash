@@ -31,23 +31,53 @@ public class GroundSegment : Segment
         float minZ = edgePadding;
         float maxZ = segmentLength - edgePadding;
 
+        float minDistance = 1.5f; // minimum distance between pickups
+        int maxAttempts = 20;     // prevent infinite loop
+
+        List<Vector3> spawnedPositions = new List<Vector3>();
+
         for (int i = 0; i < count; i++)
         {
-            Vector3 localPos = new Vector3(
-                Random.Range(minX, maxX),
-                0.2f,
-                Random.Range(minZ, maxZ)
-            );
+            Vector3 worldPos = Vector3.zero;
+            bool validPosition = false;
 
-            Vector3 worldPos = transform.position + localPos;
+            for (int attempt = 0; attempt < maxAttempts; attempt++)
+            {
+                Vector3 localPos = new Vector3(
+                    Random.Range(minX, maxX),
+                    0.2f,
+                    Random.Range(minZ, maxZ)
+                );
 
+                worldPos = transform.position + localPos;
+
+                // check against all already spawned positions
+                bool tooClose = false;
+                foreach (var pos in spawnedPositions)
+                {
+                    if (Vector3.Distance(worldPos, pos) < minDistance)
+                    {
+                        tooClose = true;
+                        break;
+                    }
+                }
+
+                if (!tooClose)
+                {
+                    validPosition = true;
+                    break;
+                }
+            }
+
+            if (!validPosition) continue; // skip if no valid spot found
+
+            spawnedPositions.Add(worldPos);
             var go = Instantiate(prefab, worldPos, Quaternion.identity, transform);
             var pickup = go.GetComponent<PlatformPickup>();
             pickup.Initialise(collector);
             _activePickups.Add(pickup);
         }
     }
-
     private void ClearPickups()
     {
         foreach (var p in _activePickups)
