@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public enum GameState { Menu, Playing, GameOver }
     public GameState State { get; private set; } = GameState.Menu;
 
-    public event System.Action<GameState> OnStateChanged;
+    public static event System.Action<GameState> OnStateChanged;
 
     private void Awake()
     {

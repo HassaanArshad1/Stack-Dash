@@ -35,6 +35,15 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""4aeb9aa0-f8c1-42bb-9372-7d1abd917120"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -59,6 +68,17 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Tap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1c4660c1-1b11-41c3-8f52-31aa5402e12d"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -68,6 +88,7 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
         // GamePlay
         m_GamePlay = asset.FindActionMap("GamePlay", throwIfNotFound: true);
         m_GamePlay_Tap = m_GamePlay.FindAction("Tap", throwIfNotFound: true);
+        m_GamePlay_Move = m_GamePlay.FindAction("Move", throwIfNotFound: true);
     }
 
     ~@GameInputActions()
@@ -135,11 +156,13 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_GamePlay;
     private List<IGamePlayActions> m_GamePlayActionsCallbackInterfaces = new List<IGamePlayActions>();
     private readonly InputAction m_GamePlay_Tap;
+    private readonly InputAction m_GamePlay_Move;
     public struct GamePlayActions
     {
         private @GameInputActions m_Wrapper;
         public GamePlayActions(@GameInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Tap => m_Wrapper.m_GamePlay_Tap;
+        public InputAction @Move => m_Wrapper.m_GamePlay_Move;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -152,6 +175,9 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             @Tap.started += instance.OnTap;
             @Tap.performed += instance.OnTap;
             @Tap.canceled += instance.OnTap;
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
         }
 
         private void UnregisterCallbacks(IGamePlayActions instance)
@@ -159,6 +185,9 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             @Tap.started -= instance.OnTap;
             @Tap.performed -= instance.OnTap;
             @Tap.canceled -= instance.OnTap;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
         }
 
         public void RemoveCallbacks(IGamePlayActions instance)
@@ -179,5 +208,6 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
     public interface IGamePlayActions
     {
         void OnTap(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
     }
 }
