@@ -8,7 +8,7 @@ public class DifficultyConfig : ScriptableObject
     public AnimationCurve gapSpawnChanceOverDistance = AnimationCurve.Linear(0, 0.4f, 500, 0.7f);
 
     [Header("Pickup Settings")]
-    public AnimationCurve pickupCountOverDistance = AnimationCurve.Linear(0, 2, 500, 3);
+    public int pickupsPerSegment = 5;
 
     [Header("Speed Settings")]
     public AnimationCurve playerSpeedOverDistance = AnimationCurve.Linear(0, 8, 500, 14);
@@ -21,9 +21,6 @@ public class DifficultyConfig : ScriptableObject
 
     public float GetGapSpawnChance(float distance) => 
         gapSpawnChanceOverDistance.Evaluate(distance);
-
-    public int GetPickupCount(float distance) => 
-        Mathf.RoundToInt(pickupCountOverDistance.Evaluate(distance));
 
     public float GetPlayerSpeed(float distance) => 
         playerSpeedOverDistance.Evaluate(distance);

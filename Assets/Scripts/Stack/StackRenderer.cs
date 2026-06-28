@@ -51,7 +51,6 @@ public class StackRenderer : MonoBehaviour
 
         while (_pieces.Count > newCount)
         {
-            Debug.Log("Stack Being COnsumed");
             Destroy(_pieces[^1].gameObject);
             _pieces.RemoveAt(_pieces.Count - 1);
         }

@@ -3,35 +3,47 @@ using UnityEngine;
 
 public class GroundSegment : Segment
 {
-    [SerializeField] private Transform[] pickupSpawnPoints;
     [SerializeField] private float segmentLength = 10f;
+    [SerializeField] private float segmentWidth = 8f;
+    [SerializeField] private float edgePadding = 0.8f;
 
     private readonly List<PlatformPickup> _activePickups = new List<PlatformPickup>();
-    private StackCollector _collector;
+
+    public override void Recycle()
+    {
+        ClearPickups();
+        gameObject.SetActive(false);
+    }
 
     public void Initialise(StackCollector collector, int pickupCount,
         GameObject pickupPrefab)
     {
         SegmentLength = segmentLength;
-        _collector = collector;
         ClearPickups();
-        SpawnPickups(pickupCount, pickupPrefab);
+        SpawnPickups(collector, pickupCount, pickupPrefab);
         gameObject.SetActive(true);
     }
 
-    private void SpawnPickups(int count, GameObject prefab)
+    private void SpawnPickups(StackCollector collector, int count, GameObject prefab)
     {
-        int spawnCount = Mathf.Min(count, pickupSpawnPoints.Length);
-        int[] indices = GetShuffledIndices(pickupSpawnPoints.Length);
+        float minX = -segmentWidth * 0.5f + edgePadding;
+        float maxX =  segmentWidth * 0.5f - edgePadding;
+        float minZ = edgePadding;
+        float maxZ = segmentLength - edgePadding;
 
-        for (int i = 0; i < spawnCount; i++)
+        for (int i = 0; i < count; i++)
         {
-            var go = Instantiate(prefab,
-                pickupSpawnPoints[indices[i]].position,
-                Quaternion.identity, transform);
+            Vector3 localPos = new Vector3(
+                Random.Range(minX, maxX),
+                0.2f,
+                Random.Range(minZ, maxZ)
+            );
 
+            Vector3 worldPos = transform.position + localPos;
+
+            var go = Instantiate(prefab, worldPos, Quaternion.identity, transform);
             var pickup = go.GetComponent<PlatformPickup>();
-            pickup.Initialise(_collector);
+            pickup.Initialise(collector);
             _activePickups.Add(pickup);
         }
     }
@@ -41,23 +53,5 @@ public class GroundSegment : Segment
         foreach (var p in _activePickups)
             if (p != null) Destroy(p.gameObject);
         _activePickups.Clear();
-    }
-
-    private int[] GetShuffledIndices(int length)
-    {
-        int[] indices = new int[length];
-        for (int i = 0; i < length; i++) indices[i] = i;
-        for (int i = length - 1; i > 0; i--)
-        {
-            int j = Random.Range(0, i + 1);
-            (indices[i], indices[j]) = (indices[j], indices[i]);
-        }
-        return indices;
-    }
-
-    public override void Recycle()
-    {
-        ClearPickups();
-        gameObject.SetActive(false);
     }
 }

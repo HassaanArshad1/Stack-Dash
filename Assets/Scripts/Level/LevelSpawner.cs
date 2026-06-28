@@ -76,7 +76,7 @@ public class LevelSpawner : MonoBehaviour
     {
         var segment = GetGroundSegment();
         segment.transform.position = new Vector3(0, 0, _nextSpawnZ);
-        int pickupCount = difficultyConfig.GetPickupCount(_distanceTraveled);
+        int pickupCount = difficultyConfig.pickupsPerSegment;
         segment.Initialise(stackCollector, pickupCount, pickupPrefab);
         _nextSpawnZ += segment.SegmentLength;
         _activeSegments.Add(segment);
