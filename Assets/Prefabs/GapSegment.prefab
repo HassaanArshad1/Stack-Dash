@@ -82,4 +82,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileSize: 1
-  bridgeTilePrefab: {fileID: 6058167920653867538, guid: 81cbab72396ef4db38b1c68ad344f767, type: 3}
+  bridgeTilePrefab: {fileID: 6058167920653867538, guid: d6ce31be7ddd44dc498c4bf985913479, type: 3}

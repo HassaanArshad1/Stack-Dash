@@ -5,7 +5,7 @@ public class StackCollector : MonoBehaviour
 {
     public int StackCount { get; private set; }
 
-    public event System.Action<int> OnStackChanged;
+    public static event System.Action<int> OnStackChanged;
 
     private PlayerController _player;
 
