@@ -20,6 +20,7 @@ public class PlatformPickup : MonoBehaviour
         if (collector == null) return;
 
         _collected = true;
+        FXManager.Instance.PlayCollectFX((transform.position));
         collector.AddToStack();
         gameObject.SetActive(false);
     }

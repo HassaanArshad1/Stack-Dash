@@ -17,11 +17,11 @@ public class BonusPickup : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (_collected) return;
-        Debug.Log("Bonus Collision");
         var collector = other.GetComponentInParent<StackCollector>();
         if (collector == null) return;
 
         _collected = true;
+        FXManager.Instance.PlayBonusCollectFX(transform.position);
         collector.AddToStack(_bonusAmount);
         gameObject.SetActive(false);
     }

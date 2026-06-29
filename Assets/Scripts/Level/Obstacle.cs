@@ -20,6 +20,7 @@ public class Obstacle : MonoBehaviour
         if (collector == null) return;
 
         _hit = true;
+        FXManager.Instance.PlayObstacleHitFX(transform.position);
         ScreenShake.Instance.Shake(0.2f, 0.1f);
         bool survived = collector.ConsumeStack(stackPenalty);
         if (!survived)
