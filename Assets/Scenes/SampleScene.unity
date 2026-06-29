@@ -848,6 +848,7 @@ Transform:
   - {fileID: 987280148}
   - {fileID: 697060626}
   - {fileID: 1189092292}
+  - {fileID: 2107449280}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &616417240
@@ -2754,6 +2755,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerLabel: {fileID: 111738260}
   stackCountLabel: {fileID: 1669606022}
+--- !u!1 &2107449279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2107449280}
+  - component: {fileID: 2107449281}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2107449280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107449279}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 602301389}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2107449281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107449279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6681bb04de4694f5aacc568c0a99b41a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectSFX: {fileID: 8300000, guid: 6d405e3a054b8408984d7e0f3ff7abfc, type: 3}
+  bonusCollectSFX: {fileID: 8300000, guid: 00b66e62b18714d4581823e058946609, type: 3}
+  obstacleHitSFX: {fileID: 8300000, guid: 5c51f448eda8340c9b61d0bed4a879f4, type: 3}
+  gameOverSFX: {fileID: 8300000, guid: b8849fc17cc7f4fb5ac4be912c4f0e67, type: 3}
+  bridgeTileSFX: {fileID: 8300000, guid: c28b64c0d70374f05a1309f755fd46e6, type: 3}
+  backgroundMusic: {fileID: 8300000, guid: b5a449e84a1184ca8b107b41bbd7925d, type: 3}
+  musicVolume: 0.2
+  sfxVolume: 1
 --- !u!4 &2359467140750417956
 Transform:
   m_ObjectHideFlags: 0

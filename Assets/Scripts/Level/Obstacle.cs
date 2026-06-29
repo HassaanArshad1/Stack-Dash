@@ -21,6 +21,7 @@ public class Obstacle : MonoBehaviour
 
         _hit = true;
         FXManager.Instance.PlayObstacleHitFX(transform.position);
+        AudioManager.Instance.PlayObstacleHitSFX();
         ScreenShake.Instance.Shake(0.2f, 0.1f);
         bool survived = collector.ConsumeStack(stackPenalty);
         if (!survived)

@@ -21,6 +21,7 @@ public class PlatformPickup : MonoBehaviour
 
         _collected = true;
         FXManager.Instance.PlayCollectFX((transform.position));
+        AudioManager.Instance.PlayCollectSFX();
         collector.AddToStack();
         gameObject.SetActive(false);
     }

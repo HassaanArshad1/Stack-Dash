@@ -49,6 +49,7 @@ public class BridgePlacer : MonoBehaviour
             var tile = Instantiate(bridgeTilePrefab, tilePos, Quaternion.identity, transform);
             _placedTiles.Add(tile);
             _lastTilePlacedZ += tileSize;
+            AudioManager.Instance.PlayBridgeTileSFX();
         }
     }
 

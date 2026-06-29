@@ -22,6 +22,7 @@ public class BonusPickup : MonoBehaviour
 
         _collected = true;
         FXManager.Instance.PlayBonusCollectFX(transform.position);
+        AudioManager.Instance.PlayBonusCollectSFX();
         collector.AddToStack(_bonusAmount);
         gameObject.SetActive(false);
     }
