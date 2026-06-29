@@ -12,6 +12,8 @@ public class LevelSpawner : MonoBehaviour
     [SerializeField] private GameObject groundSegmentPrefab;
     [SerializeField] private GameObject gapSegmentPrefab;
     [SerializeField] private GameObject pickupPrefab;
+    [SerializeField] private GameObject bonusPickupPrefab;
+    [SerializeField] private GameObject obstaclePrefab;
 
     [Header("Spawn Settings")]
     [SerializeField] private float spawnAheadDistance = 30f;
@@ -72,11 +74,12 @@ public class LevelSpawner : MonoBehaviour
     }
 
     private void SpawnGroundSegment()
-    { 
+    {
         var segment = GetGroundSegment();
         segment.transform.position = new Vector3(0, 0, _nextSpawnZ);
         int pickupCount = difficultyConfig.pickupsPerSegment;
-        segment.Initialise(stackCollector, pickupCount, pickupPrefab);
+        segment.Initialise(stackCollector, pickupCount, pickupPrefab,
+            bonusPickupPrefab, obstaclePrefab, difficultyConfig);
         _nextSpawnZ += segment.SegmentLength;
         _activeSegments.Add(segment);
     }

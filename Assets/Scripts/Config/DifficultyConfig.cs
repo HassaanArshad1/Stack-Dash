@@ -15,7 +15,13 @@ public class DifficultyConfig : ScriptableObject
     
     [Header("Gap Spawn Settings")]
     public float minDistanceBeforeFirstGap = 5f;
+    
+    [Header("Obstacle Settings")]
+    public int obstaclesPerSegment = 1;
 
+    [Header("Bonus Pickup Settings")]
+    public float bonusPickupChance = 0.3f; 
+    
     public int GetGapWidth(float distance) => 
         Mathf.RoundToInt(gapWidthOverDistance.Evaluate(distance));
 
