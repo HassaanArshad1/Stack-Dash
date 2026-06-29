@@ -20,10 +20,15 @@ public class Obstacle : MonoBehaviour
         if (collector == null) return;
 
         _hit = true;
-
+        ScreenShake.Instance.Shake(0.2f, 0.1f);
         bool survived = collector.ConsumeStack(stackPenalty);
         if (!survived)
+        {
+            ScreenShake.Instance.Shake(0.5f, 0.3f);
             GameManager.Instance.TriggerGameOver();
+        }
+
+        gameObject.SetActive(false);
     }
 
     public void Recycle()

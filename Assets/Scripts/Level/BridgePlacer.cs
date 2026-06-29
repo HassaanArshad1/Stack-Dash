@@ -34,6 +34,7 @@ public class BridgePlacer : MonoBehaviour
 
             if (!survived)
             {
+                ScreenShake.Instance.Shake(0.5f, 0.3f);
                 GameManager.Instance.TriggerGameOver();
                 _isInGap = false;
                 return;
