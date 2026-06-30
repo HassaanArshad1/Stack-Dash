@@ -1,13 +1,21 @@
 # Stack Dash
 
-Hyper-casual WebGL game built in Unity 6 (URP).  
-Player runs forward, taps to collect platforms, crosses gaps using their stack.
+Hyper-casual WebGL endless runner built in Unity 6 (URP).  
+Collect platforms, bridge gaps, avoid obstacles. How long can you survive?
 
-**Play it:** [itch.io link coming soon]  
-**Tech:** Unity 6, URP, New Input System, Object Pooling, ScriptableObject-driven difficulty
+**▶ Play it now:** [hassaanwain.itch.io/stackdash](https://hassaanwain.itch.io/stackdash)
+
+## Tech
+- Unity 6, URP
+- New Input System
+- Object Pooling
+- ScriptableObject-driven difficulty
+- Procedural level generation
+- Event-driven architecture
 
 ## Architecture
-- Event-driven input via New Input System
-- Data/visual separation on the stack system
-- ScriptableObject-driven difficulty config
-- Object pooling for level segments
+- GameManager singleton state machine (Menu/Playing/GameOver)
+- Data/visual separation on stack system
+- Segment base class with GroundSegment and GapSegment
+- Bridge-building gap mechanic
+- DifficultyConfig ScriptableObject with AnimationCurves
