@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameOverScreen : MonoBehaviour
@@ -27,11 +26,13 @@ public class GameOverScreen : MonoBehaviour
 
         if (isGameOver)
         {
-            finalTimeLabel.text = ScoreManager.Instance.GetFormattedTime();
-            bestTimeLabel.text = ScoreManager.Instance.GetFormattedBestTime();
+            finalTimeLabel.text = $"Your Time {ScoreManager.Instance.GetFormattedTime()}";
+            bestTimeLabel.text = $"Best Time {ScoreManager.Instance.GetFormattedBestTime()}";
         }
     }
 
-    private void OnRestartClicked() =>
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    private void OnRestartClicked()
+    {
+        GameManager.Instance.RestartGame();
+    }
 }

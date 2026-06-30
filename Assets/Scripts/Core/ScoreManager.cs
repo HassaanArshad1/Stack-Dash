@@ -13,6 +13,8 @@ public class ScoreManager : MonoBehaviour
     {
         if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
+        
+        BestTime = PlayerPrefs.GetFloat("BestTime", 0f);
     }
 
     private void OnEnable()
@@ -29,6 +31,11 @@ public class ScoreManager : MonoBehaviour
     {
         if (!_isTiming) return;
         CurrentTime += Time.deltaTime;
+        
+        if (CurrentTime > BestTime)
+        {
+            BestTime = CurrentTime;
+        }
     }
 
     private void HandleStateChanged(GameManager.GameState state)
@@ -41,8 +48,8 @@ public class ScoreManager : MonoBehaviour
         else if (state == GameManager.GameState.GameOver)
         {
             _isTiming = false;
-            if (CurrentTime > BestTime)
-                BestTime = CurrentTime;
+            PlayerPrefs.SetFloat("BestTime", BestTime);
+            PlayerPrefs.Save();
         }
     }
 

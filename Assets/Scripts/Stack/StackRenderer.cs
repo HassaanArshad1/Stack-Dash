@@ -17,11 +17,13 @@ public class StackRenderer : MonoBehaviour
 
     private void OnEnable()
     {
+        GameManager.OnStateChanged += HandleStateChanged;
         StackCollector.OnStackChanged += SyncVisuals;
     }
 
     private void OnDisable()
     {
+        GameManager.OnStateChanged -= HandleStateChanged;
         StackCollector.OnStackChanged -= SyncVisuals;
     }
 
@@ -52,5 +54,11 @@ public class StackRenderer : MonoBehaviour
             Destroy(_pieces[^1].gameObject);
             _pieces.RemoveAt(_pieces.Count - 1);
         }
+    }
+    
+    private void HandleStateChanged(GameManager.GameState state)
+    {
+        if (state == GameManager.GameState.Menu)
+            SyncVisuals(0);
     }
 }

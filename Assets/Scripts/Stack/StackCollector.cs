@@ -13,6 +13,25 @@ public class StackCollector : MonoBehaviour
     {
         _player = GetComponent<PlayerController>();
     }
+    
+    private void OnEnable()
+    {
+        GameManager.OnStateChanged += HandleStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnStateChanged -= HandleStateChanged;
+    }
+    
+    private void HandleStateChanged(GameManager.GameState state)
+    {
+        if (state == GameManager.GameState.Menu)
+        {
+            StackCount = 0;
+            OnStackChanged?.Invoke(StackCount);
+        }
+    }
 
     public void AddToStack(int amount = 1)
     {

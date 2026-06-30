@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private InputReader _input;
     private bool _isMoving;
+    private Vector3 _startPosition;
 
     public event System.Action OnTap;
 
@@ -52,6 +53,9 @@ public class PlayerController : MonoBehaviour
     private void HandleStateChanged(GameManager.GameState state)
     {
         _isMoving = state == GameManager.GameState.Playing;
+        
+        if (state == GameManager.GameState.Menu)
+            transform.position = _startPosition;
     }
     
     private void HandleMove(Vector2 delta)

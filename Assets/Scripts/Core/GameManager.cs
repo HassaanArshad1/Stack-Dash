@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public enum GameState { Menu, Playing, GameOver }
+    public enum GameState { Menu, Playing, GameOver, Reset }
     public GameState State { get; private set; } = GameState.Menu;
 
     public static event System.Action<GameState> OnStateChanged;
@@ -22,5 +22,10 @@ public class GameManager : MonoBehaviour
     {
         State = newState;
         OnStateChanged?.Invoke(State);
+        
+        if (newState == GameState.Reset)
+            SetState(GameState.Menu);
     }
+    
+    public void RestartGame() => SetState(GameState.Reset);
 }

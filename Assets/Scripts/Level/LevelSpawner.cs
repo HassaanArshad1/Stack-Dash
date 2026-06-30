@@ -33,6 +33,16 @@ public class LevelSpawner : MonoBehaviour
         _nextSpawnZ = 0f;
         SpawnInitialSegments();
     }
+    
+    private void OnEnable()
+    {
+        GameManager.OnStateChanged += HandleStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnStateChanged -= HandleStateChanged;
+    }
 
     private void Update()
     {
@@ -50,7 +60,7 @@ public class LevelSpawner : MonoBehaviour
         for (int i = 0; i < initialSegmentCount; i++)
             SpawnGroundSegment();
     }
-
+    
     private void SpawnSegmentsAhead()
     {
         while (_nextSpawnZ < player.position.z + spawnAheadDistance)
@@ -134,5 +144,30 @@ public class LevelSpawner : MonoBehaviour
 
         var go = Instantiate(gapSegmentPrefab);
         return go.GetComponent<GapSegment>();
+    }
+    
+    private void ResetLevel()
+    {
+        // Recycle all active segments
+        foreach (var seg in _activeSegments)
+        {
+            seg.Recycle();
+            if (seg is GroundSegment ground)
+                _groundPool.Enqueue(ground);
+            else if (seg is GapSegment gap)
+                _gapPool.Enqueue(gap);
+        }
+        _activeSegments.Clear();
+        _nextSpawnZ = 0f;
+        _distanceTraveled = 0f;
+        _lastSegmentWasGap = false;
+
+        SpawnInitialSegments();
+    }
+
+    private void HandleStateChanged(GameManager.GameState state)
+    {
+        if (state == GameManager.GameState.Menu)
+            ResetLevel();
     }
 }
